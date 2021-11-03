@@ -1,8 +1,7 @@
 import classes from './Card.module.css';
-import Modal from './Modal';
 
-const Card = (props) => {
-	return <Modal className={classes.card}>{props.children}</Modal>;
+const Card = props => {
+  return <div className={classes.card}>{props.children}</div>
 };
 
 export default Card;
