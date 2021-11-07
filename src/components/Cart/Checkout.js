@@ -40,6 +40,13 @@ const Checkout = (props) => {
 			city: enteredCityIsValid,
 			postalcode: enteredPostalIsValid
 		});
+
+		props.onConfirm({
+			name: enteredName,
+			address: enteredAddress,
+			city: enteredCity,
+			postalcode: enteredPostal
+		});
 	};
 
 	const nameControlCls = `${classes.control} ${
