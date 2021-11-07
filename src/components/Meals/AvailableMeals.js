@@ -7,13 +7,16 @@ const AvailableMeals = () => {
 	const [meals, setMeals] = useState([]);
 
 	const [isLoading, setIsLoading] = useState(true);
-	// const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState();
 
 	useEffect(() => {
 		const fetchMeals = async () => {
 			const res = await fetch(
 				'https://fir-demo-a3f3e-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json'
 			);
+			if (!res.ok) {
+				throw new Error('Something went wrong, Try again!');
+			}
 			const mealsObj = await res.json();
 
 			const loadedMeals = [];
@@ -32,7 +35,11 @@ const AvailableMeals = () => {
 			setIsLoading(false);
 		};
 
-		fetchMeals();
+		fetchMeals().catch((e) => {
+			console.log(e);
+			setIsLoading(false);
+			setError(e.message);
+		});
 	}, []);
 
 	// useEffect never runs again cuz no dependencies.
@@ -41,6 +48,14 @@ const AvailableMeals = () => {
 		return (
 			<section className={classes.mealsLoading}>
 				<p>Loading...</p>
+			</section>
+		);
+	}
+
+	if (error) {
+		return (
+			<section className={classes.mealsError}>
+				<p>{error}</p>
 			</section>
 		);
 	}
