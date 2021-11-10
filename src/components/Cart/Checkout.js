@@ -41,12 +41,19 @@ const Checkout = (props) => {
 			postalcode: enteredPostalIsValid
 		});
 
-		props.onConfirm({
-			name: enteredName,
-			address: enteredAddress,
-			city: enteredCity,
-			postalcode: enteredPostal
-		});
+		if (
+			enteredNameIsValid &&
+			enteredAddressIsValid &&
+			enteredCityIsValid &&
+			enteredPostalIsValid
+		) {
+			props.onConfirm({
+				name: enteredName,
+				address: enteredAddress,
+				city: enteredCity,
+				postalcode: enteredPostal
+			});
+		}
 	};
 
 	const nameControlCls = `${classes.control} ${
